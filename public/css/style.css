@@ -1,0 +1,130 @@
+header{
+    background-color: #1A5276;
+    color: #fff;
+}
+img{
+    width: 100% !important;
+    height: 100% !important;
+}
+a{
+    text-decoration: none !important;
+}
+button{
+    align-items: center;
+}
+.back{
+    color: #000;
+}
+.back:hover{
+    cursor: pointer;
+}
+.cont-add{
+    display: flex;
+    justify-content: end;
+    width: auto;
+}
+.cont-add a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin: 10px 0px;
+}
+.content-buttons{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+.content-buttons a,button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+.icon{
+    color: #fff;
+}
+.error{
+    color: #842029;
+    background-color: #f8d7da;
+    padding: 5px 10px;
+}
+.cont-books{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.cont-books .card{
+    margin: 10px auto;
+    background-color: #F0F3F4;
+}
+.cont-books .card .list-group-item{
+    background-color: #F0F3F4;
+}
+.cont-imagen{
+    width: 100%;
+    height: 200px;
+    margin: 0px;
+}
+.cont-imagen img{
+    width: 100%;
+    position: absolute;
+    height: 200px !important;
+}
+.imagen-hover{
+    background-color: rgba(0, 0, 0, 0.63);
+    position: absolute;
+    width: 100%;
+    height: 200px;
+    border: 0.25rem solid #dee2e6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+}
+.imagen-hover button{
+    border-radius: 50%;
+    padding: 15px;
+    border: 2px solid #797D7F;
+    background-color: #626567;
+}
+.imagen-hover.show{
+    visibility: visible;
+}
+.cont-show-book{
+    width: 100%;
+    /* background-color: red; */
+}
+.cont-show-image-book{
+    /* background-color: #626567; */
+    width: 60%;
+    height: 230px;
+    margin: auto;
+}
+.cont-show-data-book{
+    /* background-color: rebeccapurple; */
+    width: 100%;
+}
+.column{
+    width: 35%;
+    /* background-color: yellow; */
+}
+.column-value{
+    width: 65%;
+    /* overflow: hidden; */
+    word-wrap: break-word;
+    /* background-color: orange; */
+}
+@media(min-width: 992px){
+    .cont-show-book{
+        display: flex;
+    }
+    .cont-show-data-book{
+        width: 70%;
+    }
+    .cont-show-image-book{
+        width: 25%;
+        height: 300px;
+    }
+
+}
