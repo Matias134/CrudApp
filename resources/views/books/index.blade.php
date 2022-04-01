@@ -55,7 +55,9 @@
             @include('modals.edit-image-book')
         @endforeach
     </div>
-    {{ $books->links() }}
+    <div class="container-links">
+        {{ $books->links() }}
+    </div>
 
 @endsection
 @section('js')

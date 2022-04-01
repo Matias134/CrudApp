@@ -7,7 +7,6 @@
             class="fas fa-arrow-left fs-2 back"></i></a>
     <h1 class="text-center">Libro</h1>
     <div class="cont-show-book">
-        {{-- {{ $book }} --}}
         <div class="cont-show-image-book">
             <img src="{{ asset($book->image) }}" class="img-thumbnail" alt="">
         </div>
