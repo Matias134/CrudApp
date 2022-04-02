@@ -26,19 +26,26 @@ class AuthorController extends Controller
     public function store(StoreAuthorRequest $request)
     {
         try {
+            
             $year_of_birth = $request->year_of_birth;
             $year_of_death = $request->year_of_death;
             
             $age = $this->getAge($year_of_birth, $year_of_death);
-            
-            if($this->validateAge($year_of_birth, $year_of_death))
-            {
-                $author = new Author($request->all());
-                $author->save();
-                return redirect()->route('author.create')->with('success', '¡Autor creado correctamente!');
-            }else{
+
+            $yearValidated = $this->validateYearOfBirth($year_of_birth);
+
+            if( !$yearValidated ) {
+                return redirect()->route('author.create')->with('failed', 'El año de nacimiento no puede ser mayor al año al actual');
+            } 
+
+            if( $age < 6 || $age > 124 ) {
                 return redirect()->route('author.create')->with('failed', 'El calculo de la edad es "'.$age.'" esta se encuentra fuera de los rangos permitidos(6 - 124)');
             }
+
+            $author = new Author($request->all());
+            $author->save();
+            return redirect()->route('author.create')->with('success', '¡Autor creado correctamente!');
+
         } catch (\Throwable $th) {
             // throw $th;
             return redirect()->route('author.create')->with('failed', 'Ha ocurrido un error inesperado');
@@ -68,12 +75,19 @@ class AuthorController extends Controller
 
             $age = $this->getAge($year_of_birth, $year_of_death);
 
-            if($this->validateAge($year_of_birth, $year_of_death)){
-                $author->update($request->all());
-                return redirect()->route('author.edit', $author)->with('success', '¡Autor editado correctamente!');
-            }else{
-                return redirect()->route('author.edit', $author)->with('failed', 'El calculo de la edad es "'.$age.'" esta se encuentra fuera de los rangos permitidos');
+            $yearValidated = $this->validateYearOfBirth($year_of_birth);
+
+            if( !$yearValidated ) {
+                return redirect()->route('author.edit', $author)->with('failed', 'El año de nacimiento no puede ser mayor al año al actual');
+            } 
+
+            if( $age < 6 || $age > 124 ) {
+                return redirect()->route('author.edit', $author)->with('failed', 'El calculo de la edad es "'.$age.'" esta se encuentra fuera de los rangos permitidos(6 - 124)');
             }
+
+            $author->update($request->all());
+            return redirect()->route('author.edit', $author)->with('success', '¡Autor editado correctamente!');
+
         } catch (\Throwable $th) {
             // throw $th;
             return redirect()->route('author.edit', $author)->with('failed', 'Ha ocurrido un error inesperado');
@@ -93,24 +107,28 @@ class AuthorController extends Controller
     
     public function getAge($year_of_birth, $year_of_death)
     {
-        $start = new DateTime($year_of_birth);
-        if($year_of_death != null){
-            $end = new DateTime($year_of_death);
-        }else{
-            $end = new DateTime();
-            $end->setTimezone(new DateTimeZone('America/Santiago'));
+        $start_date = new DateTime($year_of_birth);
+        if($year_of_death == null) {
+            $end_date = new DateTime('NOW');
+        } else {
+            $end_date = new DateTime($year_of_death);
         }
-        $age = $start->diff($end);
-        return $age->y;
+
+        $age = $start_date->diff($end_date);
+
+        return $age->format('%r%y');
     }
 
-    public function validateAge($year_of_birth, $year_of_death)
+    public function validateYearOfBirth( $year_of_birth )
     {
-        $age = $this->getAge($year_of_birth, $year_of_death);
-        if($age > 5 && $age < 125){
-            return true;
-        }else{
+        list( $year ) = explode('-', $year_of_birth);
+        $currentYear = new DateTime('NOW');
+        $currentYear = $currentYear->format('Y');
+        if( $year > $currentYear ) {
             return false;
+        } else {
+            return true;
         }
     }
+
 }

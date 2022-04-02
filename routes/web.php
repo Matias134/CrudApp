@@ -34,5 +34,4 @@ Route::controller(BookController::class)->group(function () {
     Route::put('libro/editar/{book}', 'update')->name('book.update');
     Route::put('libro/editar/imagen/{book}', 'update_image')->name('book.update_image');
     Route::delete('libro/eliminar/{book}', 'destroy')->name('book.destroy');
-
 });
