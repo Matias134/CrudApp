@@ -32,7 +32,7 @@ class BookController extends Controller
     {
         try {
 
-            $image = $request->file('image')->store('public/images');
+            $image = $request->file('image')->store('public');
             $url = Storage::url($image);
 
             $book = new Book();
@@ -95,7 +95,7 @@ class BookController extends Controller
             ]);
 
             //Agregar imagen nueva
-            $image = $request->file('image')->store('public/images');
+            $image = $request->file('image')->store('public');
             $url_image = Storage::url($image);
 
             //Eliminar imagen anterior
